@@ -28,14 +28,20 @@ def set_prefix_path(p: str):
 def init_logging(conf_filename: str):
     import io
     import logging.config
-    from os.path import join
+    from os.path import join, exists
+    from os import makedirs
     from typing import Dict
 
     from ruamel.yaml import YAML
 
-    file_path: str = join(prefix_path(), "conf", conf_filename)
+    logs_path: str = join(prefix_path(), "logs")
+
+    if not exists(logs_path):
+        makedirs(logs_path, 0o711, exist_ok=True)
+
+    conf_path: str = join(prefix_path(), "conf", conf_filename)
     yaml_parser: YAML = YAML()
-    with open(file_path) as fd:
+    with open(conf_path) as fd:
         yml_source: str = fd.read()
         yml_source = yml_source.replace("$PROJECT_DIR", prefix_path())
         io_stream: io.StringIO = io.StringIO(yml_source)

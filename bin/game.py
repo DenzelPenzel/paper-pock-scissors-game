@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import path_util  # noqa: F401
+import sys
 from game.app.game_app import Game
 from game import init_logging
 
@@ -21,7 +22,9 @@ def main():
             print("Please enter a valid number of rounds")
         except KeyboardInterrupt:
             print("\nGame interrupted. Exiting...")
-            exit()
+            sys.exit()
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
     Game(rounds).play_game()
     print("Thanks for playing!")

@@ -10,33 +10,38 @@ GREEN = \033[0;32m
 BLUE = \033[0;34m
 COLOR_END = \033[0;39m
 
-TEST_LIMIT = 500s
-
-.PHONY: all build run clean docker-build docker-run test
-
+.PHONY: all
 all: build
 
+.PHONY: build
 build:
 	@echo "$(BLUE)» building application... $(COLOR_END)"
 	$(PYTHON) -m venv $(VENV_DIR)
 	$(VENV_DIR)/bin/pip install -e .
 	@echo "Deps successfully installed"
 
+.PHONY: run
 run:
+	@echo "$(BLUE)» running application... $(COLOR_END)"
 	$(VENV_DIR)/bin/python ./bin/$(APP).py
 
+.PHONY: test
+test: build
+	$(VENV_DIR)/bin/pytest
+
 # Clean up the virtual environment
+.PHONY: clean
 clean:
 	rm -rf $(VENV_DIR)
 
+.PHONY: docker-build
 docker-build:
 	docker build -t $(IMAGE_NAME) -f $(DOCKERFILE) .
 
+.PHONY: docker-run
 docker-run:
 	docker run -it --rm $(IMAGE_NAME)
 
+.PHONY: docker-clean
 docker-clean:
 	docker rmi $(IMAGE_NAME) || true
-
-test:
-	pytest

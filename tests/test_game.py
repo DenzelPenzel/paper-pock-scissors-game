@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch
 from game.app.game_app import Game
 from typing import List, Tuple

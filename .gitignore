@@ -7,6 +7,7 @@ build/
 dist/
 game.egg-info/
 venv/*
+logs/*
 
 # VSCode
 .vscode/

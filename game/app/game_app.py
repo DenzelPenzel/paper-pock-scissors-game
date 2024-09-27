@@ -1,5 +1,6 @@
 import logging
 import random
+import sys
 
 CHOICES = ['rock', 'paper', 'scissors']
 
@@ -56,13 +57,17 @@ class Game:
                 user_input = input("Enter your choice (rock, paper, scissors): ").lower().strip()
                 if user_input in CHOICES:
                     return user_input
-                self.logger().info(f"Invalid choice {user_input}, please try again")
-                print(f"Invalid user choice {user_input}, please try again")
+                error_message = f"Invalid choice '{user_input}', please try again."
+                self.logger().info(error_message)
+                print(error_message)
             except KeyboardInterrupt:
                 print("\nGame interrupted. Exiting...")
                 self.logger().info(f"Score statistics: {self.show_stats()}, Round id: {self.current_round}")
-                self.logger().warning(f"Game interrupted. Exiting...")
-                exit()
+                self.logger().warning("Game interrupted. Exiting...")
+                sys.exit()
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+                self.logger().error(f"Unexpected error: {e}")
 
     def get_computer_choice(self) -> str:
         return random.choice(CHOICES)
@@ -88,15 +93,15 @@ class Game:
         computer_choice = self.get_computer_choice()
 
         logging.info(f"User choice: {user_choice}, Computer choice: {computer_choice}")
-        print(f"You chose: {user_choice} and computer chose: {computer_choice}")
+        print(f"You chose: '{user_choice}' and computer chose: '{computer_choice}'")
 
         print(self.get_winner(user_choice, computer_choice))
 
     def show_stats(self) -> str:
-        return f"Score - User: {self.user_score}, Computer: {self.computer_score}"
+        return f"Total score after {self.rounds} rounds - User: {self.user_score}, Computer: {self.computer_score}"
 
     def play_game(self):
-        logging.info("Game started...")
+        logging.info(f"Game started, total rounds: {self.rounds}")
         for i in range(1, self.rounds + 1):
             self.play_round(i)
             print("==========================================")

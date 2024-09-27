@@ -7,7 +7,7 @@ license = { text = "MIT" }
 readme = "README.md"
 keywords = ["python", "game"]
 dependencies = [
-    "pytest>=8.3.3",
+    "pytest==8.3.3",
     "ruamel-yaml==0.16.10",
     "pre-commit==2.18.1"
 ]

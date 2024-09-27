@@ -11,7 +11,7 @@ handlers:
     class: logging.handlers.TimedRotatingFileHandler
     level: DEBUG
     formatter: simple
-    filename: $PROJECT_DIR/logs/logs_scraper.log
+    filename: $PROJECT_DIR/logs/logs_game.log
     encoding: utf8
     when: "D"
     interval: 1
