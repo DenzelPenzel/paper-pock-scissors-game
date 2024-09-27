@@ -1,0 +1,22 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+build/
+dist/
+game.egg-info/
+venv/*
+
+# VSCode
+.vscode/
+.history/
+
+# Coverage
+.coverage
+/cover/
+/coverage_html_report/
+coverage.xml
+
+# .idea
+/.idea
